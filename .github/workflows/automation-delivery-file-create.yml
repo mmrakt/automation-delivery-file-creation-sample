@@ -20,7 +20,8 @@ jobs:
         run: git fetch origin ${{ github.base_ref }}
       - name: create delivery zip
         run: |
-          git archive ${{ github.head_ref }} `git diff --name-only origin/${{ github.base_ref }} HEAD -- "${diff_path}" --diff-filter=ACMR` -o delivery.zip
+          diff_files=$(git diff --name-only origin/${{ github.base_ref }} HEAD -- "${diff_path}" --diff-filter=ACMR)
+          git archive ${{ github.head_ref }} ${diff_files} -o delivery.zip
       - name: upload zip
         uses: actions/upload-artifact@v3
         with:
