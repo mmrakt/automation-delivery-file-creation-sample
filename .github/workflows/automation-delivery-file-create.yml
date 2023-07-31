@@ -6,7 +6,7 @@ on:
     types: [closed]
 env:
   base_branch: main
-  diff_path: '*'
+  diff_path: "_dev/*"
 
 jobs:
   run-actions:
