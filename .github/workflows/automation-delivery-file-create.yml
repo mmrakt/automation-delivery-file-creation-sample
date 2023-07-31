@@ -21,7 +21,7 @@ jobs:
         run: git fetch origin ${base_branch}:${base_branch}
       - name: create delivery zip
         run: |
-          git archive `git diff --name-only HEAD ${base_branch} -- "${diff_path}" --diff-filter=ACMR` -o delivery.zip
+          git archive dev `git diff --name-only ${base_branch} -- "${diff_path}" --diff-filter=ACMR` -o delivery.zip
       - name: upload zip
         uses: actions/upload-artifact@v3
         with:
