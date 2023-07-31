@@ -3,7 +3,7 @@ name: automate-delivery-file-create
 on:
   pull_request:
     branches: [main]
-    types: [closed]
+    # types: [closed]
 env:
   base_branch: main
   diff_path: "_dev/*"
@@ -11,7 +11,7 @@ env:
 jobs:
   run-actions:
     runs-on: ubuntu-latest
-    if: github.event.pull_request.merged == true
+    # if: github.event.pull_request.merged == true
     steps:
       - name: switch to pull request branch
         uses: actions/checkout@v3
@@ -21,7 +21,7 @@ jobs:
         run: git fetch origin ${base_branch}:${base_branch}
       - name: create delivery zip
         run: |
-          git archive HEAD `git diff --name-only HEAD ${base_branch} -- "${diff_path}" --diff-filter=ACMR` -o delivery.zip
+          git archive `git diff --name-only HEAD ${base_branch} -- "${diff_path}" --diff-filter=ACMR` -o delivery.zip
       - name: upload zip
         uses: actions/upload-artifact@v3
         with:
