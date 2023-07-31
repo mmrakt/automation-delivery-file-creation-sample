@@ -10,6 +10,13 @@ jobs:
     runs-on: ubuntu-latest
 #     if: github.event.pull_request.merged == true
     steps:
+      - name: switch to pull request branch
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: fetch base branch
+        run: git fetch origin ${base_branch}:${base_branch}
       - name: create delivery zip
         run: |
-          git archive ${{ github.head_ref }} `git diff --name-only origin/${{ github.base_ref }} ${{ github.head_ref }} --diff-filter=ACMR` -o delivery.zip
+          git archive ${{ github.head_ref }} `git diff --name-only ${{ github.base_ref }} ${{ github.head_ref }} --diff-filter=ACMR` -o delivery.zip
