@@ -2,16 +2,17 @@ name: automate-delivery-file-create
 
 on:
   pull_request:
-    branches: [main]
+    branches: [master]
     # types: [closed]
 env:
-  base_branch: main
   diff_path: "_dev/*"
 
 jobs:
   run-actions:
     runs-on: ubuntu-latest
-    # if: github.event.pull_request.merged == true
+    if: >-
+      github.event.pull_request.merged == true &&
+      github.head_ref == 'release'
     steps:
       - name: switch to pull request branch
         uses: actions/checkout@v3
