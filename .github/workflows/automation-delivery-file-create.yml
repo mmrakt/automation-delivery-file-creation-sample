@@ -16,12 +16,12 @@ jobs:
       - name: switch to pull request branch
         uses: actions/checkout@v3
         with:
-          ref: ${{ github.event.pull_request.head.sha }}
+          ref: ${{ github.head_ref }}
       - name: fetch base branch
-        run: git fetch origin ${base_branch}:${base_branch}
+        run: git fetch origin ${{ github.base_ref }}
       - name: create delivery zip
         run: |
-          git archive dev `git diff --name-only ${base_branch} -- "${diff_path}" --diff-filter=ACMR` -o delivery.zip
+          git archive ${{ github.head_ref }} `git diff --name-only ${{ github.base_ref }} -- "${diff_path}" --diff-filter=ACMR` -o delivery.zip
       - name: upload zip
         uses: actions/upload-artifact@v3
         with:
