@@ -21,4 +21,4 @@ jobs:
         run: git fetch origin ${base_branch}:${base_branch}
       - name: create delivery zip
         run: |
-          git archive　${{ github.event.pull_request.head.sha }} `git diff --name-only HEAD ${base_branch} -- "${diff_path}" --diff-filter=ACMR` -o delivery.zip
+          git archive HEAD `git diff --name-only HEAD ${base_branch} -- "${diff_path}" --diff-filter=ACMR` -o delivery.zip
