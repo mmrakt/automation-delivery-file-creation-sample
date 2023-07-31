@@ -1,0 +1,15 @@
+name: automate-delivery-file-create
+
+on:
+  pull_request:
+    branches: [main]
+    types: [closed]
+
+jobs:
+  run-actions:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true
+    steps:
+      - name: create delivery zip
+        run: |
+          git archive ${{ github.head_ref }} `git diff --name-only ${{ github.base_ref }} ${{ github.head_ref }} --diff-filter=ACMR` -o delivery.zip
