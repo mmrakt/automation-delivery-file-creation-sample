@@ -3,14 +3,14 @@ name: automate-delivery-file-create
 on:
   pull_request:
     branches: [master]
-#     types: [closed]
+    types: [closed]
 env:
   diff_path: "_dev/*"
 
 jobs:
   run-actions:
     runs-on: ubuntu-latest
-    # if: github.event.pull_request.merged == true
+    if: github.event.pull_request.merged == true && github.head_ref == 'release'
     steps:
       - name: switch to pull request branch
         uses: actions/checkout@v3
@@ -26,5 +26,5 @@ jobs:
       - name: upload zip
         uses: actions/upload-artifact@v3
         with:
-          name: artifact
+          name: delivery
           path: ./delivery.zip
