@@ -10,7 +10,7 @@ env:
 jobs:
   run-actions:
     runs-on: ubuntu-latest
-        if: github.event.pull_request.merged == true && github.head_ref == 'release'
+    if: github.event.pull_request.merged == true && github.head_ref == 'release'
     steps:
       - name: switch to pull request branch
         uses: actions/checkout@v3
