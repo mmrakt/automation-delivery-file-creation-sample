@@ -22,7 +22,7 @@ jobs:
         run: |
           diff_files=$(git diff --name-only origin/${GITHUB_BASE_REF}...origin/${GITHUB_HEAD_REF} -- "${diff_path}" --diff-filter=ACMR)
           echo "::notice diff: $diff_files"
-          git archive ${{ github.head_ref }} ${diff_files} -o delivery.zip
+          git archive origin/${{ github.head_ref }} ${diff_files} -o delivery.zip
       - name: upload zip
         uses: actions/upload-artifact@v3
         with:
