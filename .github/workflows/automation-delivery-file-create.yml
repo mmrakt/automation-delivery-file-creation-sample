@@ -10,15 +10,12 @@ env:
 jobs:
   run-actions:
     runs-on: ubuntu-latest
-    #     if: github.event.pull_request.merged == true && github.head_ref == 'release'
+        if: github.event.pull_request.merged == true && github.head_ref == 'release'
     steps:
       - name: switch to pull request branch
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      #           ref: ${{ github.context.ref }}
-      # - name: fetch base branch
-      #   run: git fetch origin ${{ github.base_ref }}
       - name: create delivery zip
         run: |
           diff_files=$(git diff --name-only HEAD^ -- "${diff_path}" --diff-filter=ACMR)
