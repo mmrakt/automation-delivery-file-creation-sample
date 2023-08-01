@@ -20,7 +20,7 @@ jobs:
         run: git fetch origin ${{ github.base_ref }}
       - name: create delivery zip
         run: |
-          diff_files=$(git diff --name-only origin/${GITHUB_BASE_REF}...origin/${GITHUB_HEAD_REF} -- "${diff_path}" --diff-filter=ACMR)
+          diff_files=$(git diff --name-only origin/${{ github.base_ref }}...origin/${{ github.head_ref }} -- "${diff_path}" --diff-filter=ACMR)
           echo "::notice diff: $diff_files"
           git archive origin/${{ github.head_ref }} ${diff_files} -o delivery.zip
       - name: upload zip
