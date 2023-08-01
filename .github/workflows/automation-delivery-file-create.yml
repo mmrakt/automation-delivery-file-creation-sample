@@ -17,7 +17,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: fetch base branch
-        run: git fetch origin ${{ github.base_ref }} --depth 1
+        run: git fetch origin ${{ github.base_ref }}
       - name: create delivery zip
         run: |
           diff_files=$(git diff --name-only origin/${GITHUB_BASE_REF}...origin/${GITHUB_HEAD_REF} -- "${diff_path}" --diff-filter=ACMR)
