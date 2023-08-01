@@ -3,7 +3,7 @@ name: automate-delivery-file-create
 on:
   pull_request:
     branches: [master]
-    # types: [closed]
+    types: [closed]
 env:
   diff_path: "_dev/*"
 
@@ -17,13 +17,13 @@ jobs:
         with:
           fetch-depth: 0
       #           ref: ${{ github.context.ref }}
-      - name: fetch base branch
-        run: git fetch origin ${{ github.base_ref }}
+      # - name: fetch base branch
+      #   run: git fetch origin ${{ github.base_ref }}
       - name: create delivery zip
         run: |
-          diff_files=$(git diff --name-only origin/${{ github.base_ref }}...origin/${{ github.head_ref }} -- "${diff_path}" --diff-filter=ACMR)
+          diff_files=$(git diff --name-only HEAD^ -- "${diff_path}" --diff-filter=ACMR)
           echo "::notice diff: $diff_files"
-          git archive origin/${{ github.head_ref }} ${diff_files} -o delivery.zip
+          git archive HEAD ${diff_files} -o delivery.zip
       - name: upload zip
         uses: actions/upload-artifact@v3
         with:
