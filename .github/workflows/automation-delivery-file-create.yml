@@ -1,4 +1,4 @@
-name: automate-delivery-file-create
+name: create-zipped-diff-files
 
 on:
   pull_request:
@@ -18,7 +18,7 @@ jobs:
           fetch-depth: 0
       - name: create delivery zip
         run: |
-          diff_files=$(git diff --name-only HEAD^ -- "${diff_path}" --diff-filter=ACMR)
+          diff_files=$(git diff --name-only HEAD^ -- "${diff_path}" --diff-filter=ACMR) # baseのHEADとその一つ前を比較
           echo "::notice diff: $diff_files"
           git archive HEAD ${diff_files} -o delivery.zip
       - name: upload zip
